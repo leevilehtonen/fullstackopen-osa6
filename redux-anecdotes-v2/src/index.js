@@ -8,5 +8,4 @@ const render = () => {
 }
 
 render()
-store.dispatch({ type: 'TOGGLE' })
 store.subscribe(render)

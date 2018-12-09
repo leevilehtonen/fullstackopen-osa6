@@ -1,22 +1,21 @@
 import React from 'react'
+import { Provider } from 'react-redux'
 import Notification from './components/Notification'
 import AnecdoteForm from './components/AnecdoteForm'
 import AnecdoteList from './components/AnecdoteList'
-import Filter from './components/Filter'
 
 class App extends React.Component {
     render() {
         console.log(this.props.store.getState())
         return (
-            <div>
-                <h1>Programming anecdotes</h1>
-                {this.props.store.getState().notification.visible && (
-                    <Notification store={this.props.store} />
-                )}
-                <Filter store={this.props.store} />
-                <AnecdoteList store={this.props.store} />
-                <AnecdoteForm store={this.props.store} />
-            </div>
+            <Provider store={this.props.store}>
+                <div>
+                    <h1>Programming anecdotes</h1>
+                    <Notification />
+                    <AnecdoteList />
+                    <AnecdoteForm />
+                </div>
+            </Provider>
         )
     }
 }

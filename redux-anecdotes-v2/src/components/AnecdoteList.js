@@ -1,20 +1,16 @@
 import React from 'react'
 import { voteAnecdote } from '../reducers/anecdoteReducer'
+import { hideNotification } from '../reducers/notificationReducer'
+import { connect } from 'react-redux'
+import Filter from './Filter'
 
 class AnecdoteList extends React.Component {
     render() {
-        const filter = this.props.store.getState().filter
-        const anecdotes = this.props.store
-            .getState()
-            .anecdotes.filter(anecdote =>
-                anecdote.content.toLowerCase().includes(filter.toLowerCase())
-            )
-
-        console.log(filter)
         return (
             <div>
                 <h2>Anecdotes</h2>
-                {anecdotes
+                <Filter />
+                {this.props.anecdotesToShow
                     .sort((a, b) => b.votes - a.votes)
                     .map(anecdote => (
                         <div key={anecdote.id}>
@@ -23,13 +19,10 @@ class AnecdoteList extends React.Component {
                                 has {anecdote.votes}
                                 <button
                                     onClick={() => {
-                                        this.props.store.dispatch(
-                                            voteAnecdote(anecdote)
-                                        )
+                                        this.props.voteAnecdote(anecdote)
+
                                         setTimeout(() => {
-                                            this.props.store.dispatch({
-                                                type: 'HIDE'
-                                            })
+                                            this.props.hideNotification()
                                         }, 5000)
                                     }}
                                 >
@@ -43,4 +36,16 @@ class AnecdoteList extends React.Component {
     }
 }
 
-export default AnecdoteList
+const anecdotesToShow = (anecdotes, filter) =>
+    anecdotes.filter(anecdote =>
+        anecdote.content.toLowerCase().includes(filter.toLowerCase())
+    )
+
+const mapStateToProps = state => ({
+    anecdotesToShow: anecdotesToShow(state.anecdotes, state.filter)
+})
+
+export default connect(
+    mapStateToProps,
+    { voteAnecdote, hideNotification }
+)(AnecdoteList)
