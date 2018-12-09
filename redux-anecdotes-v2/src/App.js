@@ -2,6 +2,7 @@ import React from 'react'
 import Notification from './components/Notification'
 import AnecdoteForm from './components/AnecdoteForm'
 import AnecdoteList from './components/AnecdoteList'
+import Filter from './components/Filter'
 
 class App extends React.Component {
     render() {
@@ -12,6 +13,7 @@ class App extends React.Component {
                 {this.props.store.getState().notification.visible && (
                     <Notification store={this.props.store} />
                 )}
+                <Filter store={this.props.store} />
                 <AnecdoteList store={this.props.store} />
                 <AnecdoteForm store={this.props.store} />
             </div>

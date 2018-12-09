@@ -3,7 +3,14 @@ import { voteAnecdote } from '../reducers/anecdoteReducer'
 
 class AnecdoteList extends React.Component {
     render() {
-        const anecdotes = this.props.store.getState().anecdotes
+        const filter = this.props.store.getState().filter
+        const anecdotes = this.props.store
+            .getState()
+            .anecdotes.filter(anecdote =>
+                anecdote.content.toLowerCase().includes(filter.toLowerCase())
+            )
+
+        console.log(filter)
         return (
             <div>
                 <h2>Anecdotes</h2>
