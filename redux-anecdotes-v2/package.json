@@ -15,7 +15,6 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "babel-eslint": "^10.0.1",
     "eslint-plugin-jest": "^22.1.2",
     "fsevents": "^1.2.4"
   },

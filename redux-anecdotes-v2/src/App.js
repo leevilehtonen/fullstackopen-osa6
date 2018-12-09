@@ -5,11 +5,13 @@ import AnecdoteList from './components/AnecdoteList'
 
 class App extends React.Component {
     render() {
-        const anecdotes = this.props.store.getState()
+        console.log(this.props.store.getState())
         return (
             <div>
                 <h1>Programming anecdotes</h1>
-                <Notification />
+                {this.props.store.getState().notification.visible && (
+                    <Notification store={this.props.store} />
+                )}
                 <AnecdoteList store={this.props.store} />
                 <AnecdoteForm store={this.props.store} />
             </div>

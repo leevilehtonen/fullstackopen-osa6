@@ -6,7 +6,11 @@ class AnecdoteForm extends React.Component {
         e.preventDefault()
         const content = e.target.anecdote.value
         this.props.store.dispatch(createAnecdote(content))
-
+        setTimeout(() => {
+            this.props.store.dispatch({
+                type: 'HIDE'
+            })
+        }, 5000)
         e.target.anecdote.value = ''
     }
     render() {
