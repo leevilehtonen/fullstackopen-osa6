@@ -4,29 +4,25 @@ const initialState = {
 }
 
 const reducer = (store = initialState, action) => {
-    if (action.type === 'VOTE') {
-        console.log(store)
+    if (action.type === 'NOTIFY') {
         return {
-            message: `you voted "${action.anecdote.content}"`,
-            visible: true
-        }
-    }
-    if (action.type === 'CREATE') {
-        return {
-            message: `you created "${action.anecdote.content}"`,
+            message: action.content,
             visible: true
         }
     }
     if (action.type === 'HIDE') {
-        console.log(store)
         return { ...store, visible: false }
     }
-
     return store
 }
 
 export const hideNotification = () => ({
     type: 'HIDE'
 })
+
+export const notify = (content, time) => async dispatch => {
+    dispatch({ type: 'NOTIFY', content })
+    setTimeout(() => dispatch({ type: 'HIDE' }), time * 1000)
+}
 
 export default reducer
