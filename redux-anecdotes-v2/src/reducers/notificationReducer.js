@@ -13,7 +13,7 @@ const reducer = (store = initialState, action) => {
     }
     if (action.type === 'CREATE') {
         return {
-            message: `you created "${action.content}"`,
+            message: `you created "${action.anecdote.content}"`,
             visible: true
         }
     }
